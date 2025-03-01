@@ -1,0 +1,11 @@
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Vector database directories (ignore any directory starting with "vector_db_")
+vector_db_*/
+
+# System-specific files
+.DS_Store
+Thumbs.db
