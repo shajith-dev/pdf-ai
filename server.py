@@ -1,15 +1,15 @@
-from fastapi import HTTPException
-from fastapi import FastAPI, HTTPException
+from fastapi import FastAPI, HTTPException, Depends, status
 from pydantic import BaseModel
 import uvicorn
 from chat import PDFChatSession
+from jwt import get_current_user
 
 app = FastAPI()
 
 
 class ChatRequest(BaseModel):
-    session_id: str
-    message: str
+    object_url: str
+    query: str
 
 
 class ChatResponse(BaseModel):
@@ -17,7 +17,7 @@ class ChatResponse(BaseModel):
 
 
 @app.post("/chat", response_model=ChatResponse)
-def chat(request: ChatRequest):
+def chat(request: ChatRequest, current_user: dict = Depends(get_current_user)):
     try:
         session = PDFChatSession(request.object_url)
     except Exception as e:
@@ -29,7 +29,7 @@ def chat(request: ChatRequest):
         raise HTTPException(status_code=404, detail="Session not found")
 
     try:
-        answer = session.chat(request.message)
+        answer = session.chat(request.query)
     except Exception as e:
         # Return a 500 error if the chat processing fails.
         raise HTTPException(
