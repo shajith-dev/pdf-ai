@@ -9,3 +9,5 @@ vector_db_*/
 # System-specific files
 .DS_Store
 Thumbs.db
+
+.env
