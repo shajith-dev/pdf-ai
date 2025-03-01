@@ -23,17 +23,14 @@ def chat(request: ChatRequest, current_user: dict = Depends(get_current_user)):
     except Exception as e:
         # Return a 500 error with the exception message.
         raise HTTPException(
-            status_code=500, detail=f"Failed to create session: {str(e)}")
-
-    if not session:
-        raise HTTPException(status_code=404, detail="Session not found")
+            status_code=status.HTTP_500_INTERNAL_SERVER_ERROR, detail=f"Failed to create session: {str(e)}")
 
     try:
         answer = session.chat(request.query)
     except Exception as e:
         # Return a 500 error if the chat processing fails.
         raise HTTPException(
-            status_code=500, detail=f"Chat processing failed: {str(e)}")
+            status_code=status.HTTP_500_INTERNAL_SERVER_ERROR, detail=f"Chat processing failed: {str(e)}")
 
     return ChatResponse(answer=answer)
 
