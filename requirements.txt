@@ -1,0 +1,9 @@
+fastapi
+uvicorn
+python-dotenv
+boto3
+PyPDF2
+python-jose[cryptography]
+langchain
+langchain-openai
+langchain-chroma
