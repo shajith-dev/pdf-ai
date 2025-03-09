@@ -9,6 +9,7 @@ app = FastAPI()
 
 origins = [
     "http://localhost:3000",
+    "https://notehub-react.vercel.app/"
 ]
 
 app.add_middleware(
